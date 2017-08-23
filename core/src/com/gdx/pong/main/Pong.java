@@ -78,27 +78,26 @@ public class Pong extends ApplicationAdapter {
 		leftPlayer.move();
 		rightPlayer.move();
 		if (leftPlayer.isBallBehind(ball)){
-			ballOutside.play();
-			ball.resetPosition();
-			ball.chooseRandomDirection();
+			ballMissed();
 			rightPLayerPoints++;
 		}
 		if(rightPlayer.isBallBehind(ball)){
-			ballOutside.play();
-			ball.resetPosition();
-			ball.chooseRandomDirection();
+			ballMissed();
 			leftPlayerPoints++;
 		}
-		if(leftPlayer.isCollisonDetected(ball)){
-			hitPaddle.play();
-			ball.reverseXDirection();
-		}
-		if(rightPlayer.isCollisonDetected(ball)){
+		if(leftPlayer.isCollisonDetected(ball) || rightPlayer.isCollisonDetected(ball)){
 			hitPaddle.play();
 			ball.reverseXDirection();
 		}
 		ball.move();
 	}
+
+	private void ballMissed() {
+		ballOutside.play();
+		ball.resetPosition();
+		ball.chooseRandomDirection();
+	}
+
 
 	private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist) {
 		shapeRenderer.begin(ShapeType.Line);

@@ -19,7 +19,7 @@ public abstract class AbstractPlayer {
             paddlePositon = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
     }
 
-    // TODO : manage collision detection for paddle's corners
+
     public boolean isCollisonDetected(Ball ball) {
         return paddlePositon.overlaps(ball.getBallPosition());
     }
