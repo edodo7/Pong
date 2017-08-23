@@ -19,8 +19,16 @@ public abstract class AbstractPlayer {
     }
 
     public boolean isCollisonDetected(Ball ball) {
-        float ballEdge = ball.getX() - ball.BALL_RADIUS;
-        float paddleEdge = paddlePositon.x + PADDLE_WIDTH;
+        float ballEdge;
+        float paddleEdge;
+        if(leftPlayer) {
+            ballEdge = ball.getX() - ball.BALL_RADIUS;
+            paddleEdge = paddlePositon.x + PADDLE_WIDTH;
+        }
+        else{
+            ballEdge = ball.getX() + ball.BALL_RADIUS;
+            paddleEdge = paddlePositon.x;
+        }
         return ((ballEdge <= paddleEdge) && ballWithinPaddleHeight(ball));
     }
 
@@ -38,4 +46,11 @@ public abstract class AbstractPlayer {
     }
 
     public abstract void move();
+
+    public boolean isBallBehind(Ball ball){
+        if (leftPlayer)
+            return (ball.getX() + 40 ) < paddlePositon.x;
+        else
+            return (ball.getX() - 40) > paddlePositon.x;
+    }
 }

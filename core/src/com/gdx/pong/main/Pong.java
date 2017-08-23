@@ -2,7 +2,6 @@ package com.gdx.pong.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,8 +11,6 @@ import com.gdx.pong.Ball;
 import com.gdx.pong.players.AIPlayer;
 import com.gdx.pong.players.AbstractPlayer;
 import com.gdx.pong.players.HumanPlayer;
-
-import java.util.Random;
 
 public class Pong extends ApplicationAdapter {
 	private OrthographicCamera camera;
@@ -64,7 +61,7 @@ public class Pong extends ApplicationAdapter {
 		}
 		leftPlayer.move();
 		rightPlayer.move();
-		if (( ball.getX() + 40 ) < leftPlayer.getX()  ){
+		if (leftPlayer.isBallBehind(ball) || rightPlayer.isBallBehind(ball)  ){
 			ballOutside.play();
 			ball.resetPosition();
 			ball.chooseRandomDirection();
@@ -73,12 +70,12 @@ public class Pong extends ApplicationAdapter {
 			hitPaddle.play();
 			ball.reverseXDirection();
 		}
+//		if(rightPlayer.isCollisonDetected(ball)){
+//			hitPaddle.play();
+//			ball.reverseXDirection();
+//		}
 		ball.move();
 	}
-
-
-
-
 
 	private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist) {
 		shapeRenderer.begin(ShapeType.Line);
