@@ -5,6 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.gdx.pong.Ball;
@@ -20,8 +22,12 @@ public class Pong extends ApplicationAdapter {
 	private Music hitPaddle;
 	private Music hitWall;
 	private AbstractPlayer leftPlayer;
+	private int leftPlayerPoints;
 	private AbstractPlayer rightPlayer;
+	private int rightPLayerPoints;
 	private Ball ball;
+	private BitmapFont font;
+	private SpriteBatch batch;
 
 	@Override
 	public void create () {
@@ -36,6 +42,10 @@ public class Pong extends ApplicationAdapter {
 		ballOutside = Gdx.audio.newMusic(Gdx.files.internal("ballOutside.mp3"));
 		hitPaddle = Gdx.audio.newMusic(Gdx.files.internal("hitPaddle.wav"));
 		hitWall = Gdx.audio.newMusic(Gdx.files.internal("hitWall.wav"));
+		leftPlayerPoints = 0;
+		rightPLayerPoints = 0;
+		font = new BitmapFont();
+		batch = new SpriteBatch();
 	}
 
 	@Override
@@ -47,11 +57,17 @@ public class Pong extends ApplicationAdapter {
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(255,255,255,1);
 		drawDottedLine(dottedLineRenderer, 20);
-		shapeRenderer.circle(ball.getX(),ball.getY(), ball.BALL_RADIUS);
-		shapeRenderer.rect(leftPlayer.getX(),leftPlayer.getY(),leftPlayer.PADDLE_WIDTH,leftPlayer.PADDLE_HEIGHT);
-		shapeRenderer.rect(rightPlayer.getX(),rightPlayer.getY(),rightPlayer.PADDLE_WIDTH,rightPlayer.PADDLE_HEIGHT);
+		shapeRenderer.circle(ball.getX(),ball.getY(), ball.RADIUS);
+		shapeRenderer.rect(leftPlayer.getX(),leftPlayer.getY(),leftPlayer.WIDTH,leftPlayer.HEIGHT);
+		shapeRenderer.rect(rightPlayer.getX(),rightPlayer.getY(),rightPlayer.WIDTH,rightPlayer.HEIGHT);
 		shapeRenderer.end();
-		if(ball.getX()>= Gdx.graphics.getWidth() || ball.getX() <= 0) {
+		batch.begin();
+
+		font.setColor(255,255,255,1);
+		font.draw(batch,leftPlayerPoints + "",650,750);
+		font.draw(batch,rightPLayerPoints + "", 800,750);
+		batch.end();
+		if(ball.getX() >= Gdx.graphics.getWidth() || ball.getX() <= 0) {
 			hitWall.play();
 			ball.reverseXDirection();
 		}
@@ -61,19 +77,26 @@ public class Pong extends ApplicationAdapter {
 		}
 		leftPlayer.move();
 		rightPlayer.move();
-		if (leftPlayer.isBallBehind(ball) || rightPlayer.isBallBehind(ball)  ){
+		if (leftPlayer.isBallBehind(ball)){
 			ballOutside.play();
 			ball.resetPosition();
 			ball.chooseRandomDirection();
+			rightPLayerPoints++;
+		}
+		if(rightPlayer.isBallBehind(ball)){
+			ballOutside.play();
+			ball.resetPosition();
+			ball.chooseRandomDirection();
+			leftPlayerPoints++;
 		}
 		if(leftPlayer.isCollisonDetected(ball)){
 			hitPaddle.play();
 			ball.reverseXDirection();
 		}
-//		if(rightPlayer.isCollisonDetected(ball)){
-//			hitPaddle.play();
-//			ball.reverseXDirection();
-//		}
+		if(rightPlayer.isCollisonDetected(ball)){
+			hitPaddle.play();
+			ball.reverseXDirection();
+		}
 		ball.move();
 	}
 

@@ -1,40 +1,27 @@
 package com.gdx.pong.players;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
 import com.gdx.pong.Ball;
 
+
 public abstract class AbstractPlayer {
-    public final int PADDLE_WIDTH = 20;
-    public final int PADDLE_HEIGHT = 100;
-    protected Vector2 paddlePositon;
+    public final int WIDTH = 20;
+    public final int HEIGHT = 100;
+    protected Rectangle paddlePositon;
     protected final boolean leftPlayer;
 
     public AbstractPlayer(boolean leftPlayer){
         this.leftPlayer = leftPlayer;
         if(leftPlayer)
-            paddlePositon =  new Vector2(150, Gdx.graphics.getHeight()/2);
+            paddlePositon =  new Rectangle(150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
         else
-            paddlePositon = new Vector2( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2);
+            paddlePositon = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
     }
 
+    // TODO : manage collision detection for paddle's corners
     public boolean isCollisonDetected(Ball ball) {
-        float ballEdge;
-        float paddleEdge;
-        if(leftPlayer) {
-            ballEdge = ball.getX() - ball.BALL_RADIUS;
-            paddleEdge = paddlePositon.x + PADDLE_WIDTH;
-        }
-        else{
-            ballEdge = ball.getX() + ball.BALL_RADIUS;
-            paddleEdge = paddlePositon.x;
-        }
-        return ((ballEdge <= paddleEdge) && ballWithinPaddleHeight(ball));
-    }
-
-    protected boolean ballWithinPaddleHeight(Ball ball){
-        return ((paddlePositon.y + PADDLE_HEIGHT >= ball.getY()+ ball.BALL_RADIUS) &&
-                (paddlePositon.y  <= ball.getY() - ball.BALL_RADIUS) );
+        return paddlePositon.overlaps(ball.getBallPosition());
     }
 
     public float getX(){
@@ -49,8 +36,8 @@ public abstract class AbstractPlayer {
 
     public boolean isBallBehind(Ball ball){
         if (leftPlayer)
-            return (ball.getX() + 40 ) < paddlePositon.x;
+            return (ball.getX() + 80 ) < paddlePositon.x;
         else
-            return (ball.getX() - 40) > paddlePositon.x;
+            return (ball.getX() - 80) > paddlePositon.x;
     }
 }

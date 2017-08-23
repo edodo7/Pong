@@ -11,7 +11,7 @@ public class HumanPlayer extends AbstractPlayer {
 
     public void move() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            if( (paddlePositon.y + PADDLE_HEIGHT) < Gdx.graphics.getHeight() )
+            if( (paddlePositon.y + HEIGHT) < Gdx.graphics.getHeight() )
                 paddlePositon.y += 7f;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){

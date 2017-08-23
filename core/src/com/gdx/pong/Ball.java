@@ -1,22 +1,23 @@
 package com.gdx.pong;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
 
 public class Ball {
-    public final int BALL_RADIUS = 12;
+    public final int RADIUS = 12;
     private Vector2 direction;
-    private Vector2 ballPosition;
+    private Rectangle ballPosition;
     private Random random;
     private float[] arrayOfDirections;
 
     public Ball(){
         random = new Random();
-        arrayOfDirections = new float[]{6f,-6f};
+        arrayOfDirections = new float[]{4f,-4f};
         direction = new Vector2();
-        ballPosition = new Vector2(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        ballPosition = new Rectangle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0,0);
     }
 
     public void chooseRandomDirection(){
@@ -26,12 +27,13 @@ public class Ball {
     }
 
     public void resetPosition(){
-        ballPosition.set(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        ballPosition.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
     }
 
     public void move(){
-        ballPosition.add(direction);
+        ballPosition.setPosition(ballPosition.x + direction.x,ballPosition.y + direction.y);
     }
+
     public float getX(){
         return ballPosition.x;
     }
@@ -46,5 +48,9 @@ public class Ball {
 
     public float getY(){
         return ballPosition.y;
+    }
+
+    public Rectangle getBallPosition() {
+        return ballPosition;
     }
 }
