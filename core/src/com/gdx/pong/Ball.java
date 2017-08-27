@@ -53,4 +53,8 @@ public class Ball {
     public Rectangle getBallPosition() {
         return ballPosition;
     }
+
+    public Vector2 getDirection(){
+        return  direction;
+    }
 }

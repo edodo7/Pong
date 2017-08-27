@@ -9,22 +9,29 @@ public class AIPlayer  extends AbstractPlayer{
     private static Ball ball;
     private final float deplacement = 5f;
 
-    public AIPlayer(boolean isLeftPlayer) {
-        super(isLeftPlayer);
+    public AIPlayer() {
+        super();
         ball = Pong.getBall();
     }
 
     public void move (){
-        if (isBallOnAIPlayerSide()) {
-            if (ball.getY() > (getY() + HEIGHT/2) )
-                moveUp();
-            else if (ball.getY() < (getY() + HEIGHT/2))
-                moveDown();
+        if (isBallOnAIPlayerSide() && isBallComingToAIPLayer()) {
+            if (ball.getY() > (getY() + HEIGHT / 2)) {
+                if( (paddlePositon.y + HEIGHT) < Gdx.graphics.getHeight() )
+                    moveUp();
+            } else if (ball.getY() < (getY() + HEIGHT / 2)) {
+                if (paddlePositon.y > 0)
+                    moveDown();
+            }
         }
     }
 
     private boolean isBallOnAIPlayerSide() {
-        return (Math.abs(paddlePositon.x - ball.getX()) < Gdx.graphics.getWidth()/2);
+        return (Math.abs((paddlePositon.x + 160 )- ball.getX()) < Gdx.graphics.getWidth()/2);
+    }
+
+    private boolean isBallComingToAIPLayer() {
+        return( (!isLeftPlayer && ball.getDirection().x > 0) || (isLeftPlayer && ball.getDirection().x < 0));
     }
 
     private void moveUp(){

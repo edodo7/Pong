@@ -8,9 +8,9 @@ public class HumanPlayer extends AbstractPlayer {
     private final int UP;
     private final int DOWN;
 
-    public HumanPlayer(boolean isleftPlayer){
-        super(isleftPlayer);
-        if (isleftPlayer){
+    public HumanPlayer(){
+        super();
+        if (isLeftPlayer){
             UP = Input.Keys.A;
             DOWN = Input.Keys.Q;
         }

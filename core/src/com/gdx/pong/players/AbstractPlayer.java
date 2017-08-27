@@ -10,9 +10,15 @@ public abstract class AbstractPlayer {
     public final int HEIGHT = 100;
     protected Rectangle paddlePositon;
     protected final boolean isLeftPlayer;
+    private static boolean isFirstInstance = true;
 
-    public AbstractPlayer(boolean isLeftPlayer){
-        this.isLeftPlayer = isLeftPlayer;
+    public AbstractPlayer(){
+        if (isFirstInstance) {
+            isLeftPlayer = true;
+            isFirstInstance = false;
+        }
+        else
+            isLeftPlayer = false;
         if(isLeftPlayer)
             paddlePositon =  new Rectangle(150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
         else

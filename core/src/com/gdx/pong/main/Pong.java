@@ -36,8 +36,8 @@ public class Pong extends ApplicationAdapter {
 		shapeRenderer = new ShapeRenderer();
 		dottedLineRenderer = new ShapeRenderer();
 		ball = new Ball();
-		leftPlayer = new HumanPlayer(true);
-		rightPlayer = new AIPlayer(false);
+		leftPlayer = new HumanPlayer();
+		rightPlayer = new AIPlayer();
 		ball.chooseRandomDirection();
 		ballOutside = Gdx.audio.newMusic(Gdx.files.internal("ballOutside.mp3"));
 		hitPaddle = Gdx.audio.newMusic(Gdx.files.internal("hitPaddle.wav"));
