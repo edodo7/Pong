@@ -1,21 +1,37 @@
 package com.gdx.pong.players;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.gdx.pong.Ball;
+import com.gdx.pong.main.Pong;
 
-// TODO : Implement a basic AI
 public class AIPlayer  extends AbstractPlayer{
-    public AIPlayer(boolean isLeft) {
-        super(isLeft);
+
+    private static Ball ball;
+    private final float deplacement = 5f;
+
+    public AIPlayer(boolean isLeftPlayer) {
+        super(isLeftPlayer);
+        ball = Pong.getBall();
     }
+
     public void move (){
-        if (Gdx.input.isKeyPressed(Input.Keys.A)){
-            if( (paddlePositon.y + HEIGHT) < Gdx.graphics.getHeight() )
-                paddlePositon.y += 7f;
+        if (isBallOnAIPlayerSide()) {
+            if (ball.getY() > (getY() + HEIGHT/2) )
+                moveUp();
+            else if (ball.getY() < (getY() + HEIGHT/2))
+                moveDown();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)){
-            if (paddlePositon.y > 0)
-                paddlePositon.y -= 7f;
-        }
+    }
+
+    private boolean isBallOnAIPlayerSide() {
+        return (Math.abs(paddlePositon.x - ball.getX()) < Gdx.graphics.getWidth()/2);
+    }
+
+    private void moveUp(){
+        paddlePositon.y += deplacement;
+    }
+
+    private void moveDown(){
+        paddlePositon.y -= deplacement;
     }
 }

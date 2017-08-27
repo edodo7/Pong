@@ -15,19 +15,19 @@ import com.gdx.pong.players.AbstractPlayer;
 import com.gdx.pong.players.HumanPlayer;
 
 public class Pong extends ApplicationAdapter {
-	private OrthographicCamera camera;
-	private ShapeRenderer shapeRenderer;
-	private ShapeRenderer dottedLineRenderer;
-	private Music ballOutside;
-	private Music hitPaddle;
-	private Music hitWall;
-	private AbstractPlayer leftPlayer;
-	private int leftPlayerPoints;
-	private AbstractPlayer rightPlayer;
-	private int rightPLayerPoints;
-	private Ball ball;
-	private BitmapFont font;
-	private SpriteBatch batch;
+	private static OrthographicCamera camera;
+	private static ShapeRenderer shapeRenderer;
+	private static ShapeRenderer dottedLineRenderer;
+	private static Music ballOutside;
+	private static Music hitPaddle;
+	private static Music hitWall;
+	private static AbstractPlayer leftPlayer;
+	private static int leftPlayerPoints;
+	private static AbstractPlayer rightPlayer;
+	private static int rightPLayerPoints;
+	private static Ball ball;
+	private static BitmapFont font;
+	private static SpriteBatch batch;
 
 	@Override
 	public void create () {
@@ -35,9 +35,9 @@ public class Pong extends ApplicationAdapter {
 		camera.setToOrtho(false);
 		shapeRenderer = new ShapeRenderer();
 		dottedLineRenderer = new ShapeRenderer();
+		ball = new Ball();
 		leftPlayer = new HumanPlayer(true);
 		rightPlayer = new AIPlayer(false);
-		ball = new Ball();
 		ball.chooseRandomDirection();
 		ballOutside = Gdx.audio.newMusic(Gdx.files.internal("ballOutside.mp3"));
 		hitPaddle = Gdx.audio.newMusic(Gdx.files.internal("hitPaddle.wav"));
@@ -105,6 +105,10 @@ public class Pong extends ApplicationAdapter {
 			shapeRenderer.line(Gdx.graphics.getWidth()/2,i,Gdx.graphics.getWidth()/2,i + 15);
 		}
 		shapeRenderer.end();
+	}
+
+	public static Ball getBall(){
+		return ball;
 	}
 
 	@Override

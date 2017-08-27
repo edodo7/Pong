@@ -15,7 +15,7 @@ public class Ball {
 
     public Ball(){
         random = new Random();
-        arrayOfDirections = new float[]{4f,-4f};
+        arrayOfDirections = new float[]{5f,-5f};
         direction = new Vector2();
         ballPosition = new Rectangle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0,0);
     }

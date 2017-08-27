@@ -9,11 +9,11 @@ public abstract class AbstractPlayer {
     public final int WIDTH = 20;
     public final int HEIGHT = 100;
     protected Rectangle paddlePositon;
-    protected final boolean leftPlayer;
+    protected final boolean isLeftPlayer;
 
-    public AbstractPlayer(boolean leftPlayer){
-        this.leftPlayer = leftPlayer;
-        if(leftPlayer)
+    public AbstractPlayer(boolean isLeftPlayer){
+        this.isLeftPlayer = isLeftPlayer;
+        if(isLeftPlayer)
             paddlePositon =  new Rectangle(150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
         else
             paddlePositon = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
@@ -35,7 +35,7 @@ public abstract class AbstractPlayer {
     public abstract void move();
 
     public boolean isBallBehind(Ball ball){
-        if (leftPlayer)
+        if (isLeftPlayer)
             return (ball.getX() + 80 ) < paddlePositon.x;
         else
             return (ball.getX() - 80) > paddlePositon.x;
