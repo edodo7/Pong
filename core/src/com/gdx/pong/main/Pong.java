@@ -67,13 +67,13 @@ public class Pong extends ApplicationAdapter {
 		font.draw(batch,leftPlayerPoints + "",650,750);
 		font.draw(batch,rightPLayerPoints + "", 800,750);
 		batch.end();
-		if(ball.getX() >= Gdx.graphics.getWidth() || ball.getX() <= 0) {
+		if(isBallHitRightEdgeOfScreen() || isBallHitLeftEgdeOfScreen()) {
 			hitWall.play();
-			ball.reverseXDirection();
+			ball.reverseAbscissaDirection();
 		}
-		if (ball.getY() >= Gdx.graphics.getHeight() || ball.getY() <= 0 ) {
+		if (isBallHitUpEdgeOfScreen() || isBallHitDownEdgeOfScreen() ) {
 			hitWall.play();
-			ball.reverseYDirection();
+			ball.reverseOrdinateDirection();
 		}
 		leftPlayer.move();
 		rightPlayer.move();
@@ -87,9 +87,25 @@ public class Pong extends ApplicationAdapter {
 		}
 		if(leftPlayer.isCollisonDetected(ball) || rightPlayer.isCollisonDetected(ball)){
 			hitPaddle.play();
-			ball.reverseXDirection();
+			ball.reverseAbscissaDirection();
 		}
 		ball.move();
+	}
+
+	private boolean isBallHitLeftEgdeOfScreen(){
+		return  ball.getX() <= 0;
+	}
+
+	private boolean isBallHitRightEdgeOfScreen(){
+		return ball.getX() >= Gdx.graphics.getWidth();
+	}
+
+	private boolean isBallHitUpEdgeOfScreen(){
+		return ball.getY() >= Gdx.graphics.getHeight();
+	}
+
+	private boolean isBallHitDownEdgeOfScreen(){
+		return ball.getY() <= 0;
 	}
 
 	private void ballMissed() {
@@ -97,7 +113,6 @@ public class Pong extends ApplicationAdapter {
 		ball.resetPosition();
 		ball.chooseRandomDirection();
 	}
-
 
 	private void drawDottedLine(ShapeRenderer shapeRenderer, int dotDist) {
 		shapeRenderer.begin(ShapeType.Line);
@@ -117,5 +132,8 @@ public class Pong extends ApplicationAdapter {
 		ballOutside.dispose();
 		hitWall.dispose();
 		hitPaddle.dispose();
+		dottedLineRenderer.dispose();
+		font.dispose();
+		batch.dispose();
 	}
 }

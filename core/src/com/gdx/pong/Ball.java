@@ -38,11 +38,11 @@ public class Ball {
         return ballPosition.x;
     }
 
-    public void reverseXDirection(){
+    public void reverseAbscissaDirection(){
         direction.x = -direction.x;
     }
 
-    public void reverseYDirection(){
+    public void reverseOrdinateDirection(){
         direction.y = -direction.y;
     }
 
@@ -51,10 +51,11 @@ public class Ball {
     }
 
     public Rectangle getBallPosition() {
-        return ballPosition;
+        return new Rectangle(ballPosition);
     }
 
-    public Vector2 getDirection(){
-        return  direction;
+    public float getAbscissaDirection(){
+        return  direction.x;
     }
+
 }

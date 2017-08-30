@@ -7,38 +7,43 @@ import com.gdx.pong.main.Pong;
 public class AIPlayer  extends Player {
 
     private static Ball ball;
-    private final float deplacement = 4.2f;
+
 
     public AIPlayer() {
-        super();
+        super(4.2f);
         ball = Pong.getBall();
     }
 
     public void move (){
         if (isBallOnAIPlayerSide() && isBallComingToAIPLayer()) {
-            if (ball.getY() > (getY() + HEIGHT / 2)) {
-                if( (paddlePositon.y + HEIGHT) < Gdx.graphics.getHeight() )
+            if (isBallAboveMiddle()) {
+                if(isUpEdgeInsideScreen())
                     moveUp();
-            } else if (ball.getY() < (getY() + HEIGHT / 2)) {
-                if (paddlePositon.y > 0)
+            } else if (isBallBelowMiddle()) {
+                if (isDownEdgeInsideScreen())
                     moveDown();
             }
         }
     }
 
     private boolean isBallOnAIPlayerSide() {
-        return (Math.abs((paddlePositon.x + 160 )- ball.getX()) < Gdx.graphics.getWidth()/2);
+        return (Math.abs((paddlePosition.x + 160 ) - ball.getX()) < Gdx.graphics.getWidth()/2);
     }
 
     private boolean isBallComingToAIPLayer() {
-        return( (!isLeftPlayer && ball.getDirection().x > 0) || (isLeftPlayer && ball.getDirection().x < 0));
+        if(isLeftPlayer)
+            return ball.getAbscissaDirection() < 0;
+        else
+            return ball.getAbscissaDirection() > 0;
     }
 
-    private void moveUp(){
-        paddlePositon.y += deplacement;
+    private boolean isBallAboveMiddle(){
+        return ball.getY() > (getY() + HEIGHT / 2);
     }
 
-    private void moveDown(){
-        paddlePositon.y -= deplacement;
+    private boolean isBallBelowMiddle(){
+        return ball.getY() < (getY() + HEIGHT / 2);
     }
+
+
 }

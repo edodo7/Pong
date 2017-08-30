@@ -9,7 +9,7 @@ public class HumanPlayer extends Player {
     private final int DOWN;
 
     public HumanPlayer(){
-        super();
+        super(7f);
         if (isLeftPlayer){
             UP = Input.Keys.A;
             DOWN = Input.Keys.Q;
@@ -22,12 +22,12 @@ public class HumanPlayer extends Player {
 
     public void move() {
         if (Gdx.input.isKeyPressed(UP)){
-            if( (paddlePositon.y + HEIGHT) < Gdx.graphics.getHeight() )
-                paddlePositon.y += 7f;
+            if(isUpEdgeInsideScreen())
+                moveUp();
         }
         if (Gdx.input.isKeyPressed(DOWN)){
-            if (paddlePositon.y > 0)
-                paddlePositon.y -= 7f;
+            if (isUpEdgeInsideScreen())
+                moveDown();
         }
     }
 }
