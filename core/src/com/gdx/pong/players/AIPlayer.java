@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.gdx.pong.Ball;
 import com.gdx.pong.main.Pong;
 
-public class AIPlayer  extends AbstractPlayer{
+public class AIPlayer  extends Player {
 
     private static Ball ball;
-    private final float deplacement = 5f;
+    private final float deplacement = 4.2f;
 
     public AIPlayer() {
         super();

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.gdx.pong.Ball;
 import com.gdx.pong.players.AIPlayer;
-import com.gdx.pong.players.AbstractPlayer;
+import com.gdx.pong.players.Player;
 import com.gdx.pong.players.HumanPlayer;
 
 public class Pong extends ApplicationAdapter {
@@ -21,9 +21,9 @@ public class Pong extends ApplicationAdapter {
 	private static Music ballOutside;
 	private static Music hitPaddle;
 	private static Music hitWall;
-	private static AbstractPlayer leftPlayer;
+	private static Player leftPlayer;
 	private static int leftPlayerPoints;
-	private static AbstractPlayer rightPlayer;
+	private static Player rightPlayer;
 	private static int rightPLayerPoints;
 	private static Ball ball;
 	private static BitmapFont font;

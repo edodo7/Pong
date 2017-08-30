@@ -3,7 +3,7 @@ package com.gdx.pong.players;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class HumanPlayer extends AbstractPlayer {
+public class HumanPlayer extends Player {
 
     private final int UP;
     private final int DOWN;

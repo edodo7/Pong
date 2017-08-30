@@ -5,14 +5,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.gdx.pong.Ball;
 
 
-public abstract class AbstractPlayer {
+public abstract class Player {
     public final int WIDTH = 20;
     public final int HEIGHT = 100;
     protected Rectangle paddlePositon;
     protected final boolean isLeftPlayer;
     private static boolean isFirstInstance = true;
 
-    public AbstractPlayer(){
+    public Player(){
         if (isFirstInstance) {
             isLeftPlayer = true;
             isFirstInstance = false;
