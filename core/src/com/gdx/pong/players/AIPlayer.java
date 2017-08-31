@@ -45,5 +45,4 @@ public class AIPlayer  extends Player {
         return ball.getY() < (getY() + HEIGHT / 2);
     }
 
-
 }

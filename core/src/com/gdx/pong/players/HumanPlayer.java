@@ -26,7 +26,7 @@ public class HumanPlayer extends Player {
                 moveUp();
         }
         if (Gdx.input.isKeyPressed(DOWN)){
-            if (isUpEdgeInsideScreen())
+            if (isDownEdgeInsideScreen())
                 moveDown();
         }
     }
