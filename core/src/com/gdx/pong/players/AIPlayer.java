@@ -10,7 +10,7 @@ public class AIPlayer  extends Player {
 
 
     public AIPlayer() {
-        super(4.2f);
+        super(4.35f);
         ball = Pong.getBall();
     }
 
