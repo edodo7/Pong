@@ -6,8 +6,6 @@ import com.gdx.pong.Ball;
 
 
 public abstract class Player {
-    public final int WIDTH = 20;
-    public final int HEIGHT = 100;
     protected Rectangle paddlePosition;
     protected final boolean isLeftPlayer;
     private static boolean isFirstInstance = true;
@@ -15,6 +13,8 @@ public abstract class Player {
 
 
     protected Player(float MOVEMENT){
+        int width = 20;
+        int height = 100;
         if (isFirstInstance) {
             isLeftPlayer = true;
             isFirstInstance = false;
@@ -22,9 +22,9 @@ public abstract class Player {
         else
             isLeftPlayer = false;
         if(isLeftPlayer)
-            paddlePosition =  new Rectangle(150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
+            paddlePosition =  new Rectangle(150, Gdx.graphics.getHeight()/2, width, height);
         else
-            paddlePosition = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, WIDTH, HEIGHT);
+            paddlePosition = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, width, height);
         this.MOVEMENT = MOVEMENT;
     }
 
@@ -45,9 +45,9 @@ public abstract class Player {
 
     public boolean isBallBehind(Ball ball){
         if (isLeftPlayer)
-            return (ball.getX() + 80 ) < paddlePosition.x;
+            return (ball.getX() + 5 ) < paddlePosition.x;
         else
-            return (ball.getX() - 80) > paddlePosition.x;
+            return (ball.getX() - 5) > paddlePosition.x;
     }
 
     protected void moveUp(){
@@ -60,11 +60,19 @@ public abstract class Player {
 
 
     protected boolean isUpEdgeInsideScreen(){
-        return (paddlePosition.y + HEIGHT) < Gdx.graphics.getHeight();
+        return (paddlePosition.y + getHeight()) < Gdx.graphics.getHeight();
     }
 
     protected boolean isDownEdgeInsideScreen(){
         return paddlePosition.y > 0;
+    }
+
+    public float getWidth(){
+        return paddlePosition.width;
+    }
+
+    public float getHeight() {
+        return paddlePosition.height;
     }
 
 }

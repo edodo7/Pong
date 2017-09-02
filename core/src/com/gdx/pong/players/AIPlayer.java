@@ -38,11 +38,11 @@ public class AIPlayer  extends Player {
     }
 
     private boolean isBallAboveMiddle(){
-        return ball.getY() > (getY() + HEIGHT / 2);
+        return ball.getY() > (getY() + getHeight() / 2);
     }
 
     private boolean isBallBelowMiddle(){
-        return ball.getY() < (getY() + HEIGHT / 2);
+        return ball.getY() < (getY() + getHeight() / 2);
     }
 
 }

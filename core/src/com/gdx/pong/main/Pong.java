@@ -58,8 +58,8 @@ public class Pong extends ApplicationAdapter {
 		shapeRenderer.setColor(255,255,255,1);
 		drawDottedLine(dottedLineRenderer, 20);
 		shapeRenderer.circle(ball.getX(),ball.getY(), ball.RADIUS);
-		shapeRenderer.rect(leftPlayer.getX(),leftPlayer.getY(),leftPlayer.WIDTH,leftPlayer.HEIGHT);
-		shapeRenderer.rect(rightPlayer.getX(),rightPlayer.getY(),rightPlayer.WIDTH,rightPlayer.HEIGHT);
+		shapeRenderer.rect(leftPlayer.getX(),leftPlayer.getY(),leftPlayer.getWidth(),leftPlayer.getHeight());
+		shapeRenderer.rect(rightPlayer.getX(),rightPlayer.getY(),rightPlayer.getWidth(),rightPlayer.getHeight());
 		shapeRenderer.end();
 		batch.begin();
 
