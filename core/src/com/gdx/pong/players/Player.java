@@ -1,12 +1,13 @@
 package com.gdx.pong.players;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.gdx.pong.Ball;
 
 
 public abstract class Player {
-    protected Rectangle paddlePosition;
+    protected Rectangle position;
     protected final boolean isLeftPlayer;
     private static boolean isFirstInstance = true;
     protected final float MOVEMENT;
@@ -22,57 +23,58 @@ public abstract class Player {
         else
             isLeftPlayer = false;
         if(isLeftPlayer)
-            paddlePosition =  new Rectangle(150, Gdx.graphics.getHeight()/2, width, height);
+            position =  new Rectangle(150, Gdx.graphics.getHeight()/2, width, height);
         else
-            paddlePosition = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, width, height);
+            position = new Rectangle( Gdx.graphics.getWidth() - 150, Gdx.graphics.getHeight()/2, width, height);
         this.MOVEMENT = MOVEMENT;
     }
 
 
     public boolean isCollisonDetected(Ball ball) {
-        return paddlePosition.overlaps(ball.getBallPosition());
+        return Intersector.overlaps(ball.getPosition(), position);
     }
 
     public float getX(){
-        return paddlePosition.x;
+        return position.x;
     }
 
     public float getY(){
-        return paddlePosition.y;
+        return position.y;
     }
 
     public abstract void move();
 
     public boolean isBallBehind(Ball ball){
+        int margin = 80;
         if (isLeftPlayer)
-            return (ball.getX() + 5 ) < paddlePosition.x;
+            return (ball.getX() + margin ) < position.x;
         else
-            return (ball.getX() - 5) > paddlePosition.x;
+            return (ball.getX() - margin) > position.x;
     }
 
     protected void moveUp(){
-        paddlePosition.y += MOVEMENT;
+        position.y += MOVEMENT;
     }
 
     protected void moveDown(){
-        paddlePosition.y -= MOVEMENT;
+        position.y -= MOVEMENT;
     }
 
 
     protected boolean isUpEdgeInsideScreen(){
-        return (paddlePosition.y + getHeight()) < Gdx.graphics.getHeight();
+        return (position.y + getHeight()) < Gdx.graphics.getHeight();
     }
 
     protected boolean isDownEdgeInsideScreen(){
-        return paddlePosition.y > 0;
+        return position.y > 0;
     }
 
     public float getWidth(){
-        return paddlePosition.width;
+        return position.width;
     }
 
     public float getHeight() {
-        return paddlePosition.height;
+        return position.height;
     }
 
 }

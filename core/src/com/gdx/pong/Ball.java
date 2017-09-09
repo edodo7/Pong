@@ -1,15 +1,14 @@
 package com.gdx.pong;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Random;
 
 public class Ball {
-    public final int RADIUS = 12;
     private Vector2 direction;
-    private Rectangle ballPosition;
+    private Circle position;
     private Random random;
     private float[] arrayOfDirections;
 
@@ -17,7 +16,7 @@ public class Ball {
         random = new Random();
         arrayOfDirections = new float[]{5f,-5f};
         direction = new Vector2();
-        ballPosition = new Rectangle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,0,0);
+        position = new Circle(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2,12f);
     }
 
     public void chooseRandomDirection(){
@@ -27,15 +26,15 @@ public class Ball {
     }
 
     public void resetPosition(){
-        ballPosition.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        position.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
     }
 
     public void move(){
-        ballPosition.setPosition(ballPosition.x + direction.x,ballPosition.y + direction.y);
+        position.setPosition(position.x + direction.x, position.y + direction.y);
     }
 
     public float getX(){
-        return ballPosition.x;
+        return position.x;
     }
 
     public void reverseAbscissaDirection(){
@@ -47,15 +46,19 @@ public class Ball {
     }
 
     public float getY(){
-        return ballPosition.y;
+        return position.y;
     }
 
-    public Rectangle getBallPosition() {
-        return new Rectangle(ballPosition);
+    public Circle getPosition() {
+        return new Circle(position);
     }
 
     public float getAbscissaDirection(){
         return  direction.x;
+    }
+
+    public float getRadius() {
+        return position.radius;
     }
 
 }

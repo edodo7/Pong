@@ -27,7 +27,7 @@ public class AIPlayer  extends Player {
     }
 
     private boolean isBallOnAIPlayerSide() {
-        return (Math.abs((paddlePosition.x + 160 ) - ball.getX()) < Gdx.graphics.getWidth()/2);
+        return (Math.abs((position.x + 160 ) - ball.getX()) < Gdx.graphics.getWidth()/2);
     }
 
     private boolean isBallComingToAIPLayer() {
