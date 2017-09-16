@@ -8,24 +8,23 @@ public class HumanPlayer extends Player {
     private final int UP;
     private final int DOWN;
 
-    public HumanPlayer(){
+    public HumanPlayer() {
         super(7f);
-        if (isLeftPlayer){
+        if (isLeftPlayer) {
             UP = Input.Keys.A;
             DOWN = Input.Keys.Q;
-        }
-        else{
+        } else {
             UP = Input.Keys.UP;
             DOWN = Input.Keys.DOWN;
         }
     }
 
     public void move() {
-        if (Gdx.input.isKeyPressed(UP)){
-            if(isUpEdgeInsideScreen())
+        if (Gdx.input.isKeyPressed(UP)) {
+            if (isUpEdgeInsideScreen())
                 moveUp();
         }
-        if (Gdx.input.isKeyPressed(DOWN)){
+        if (Gdx.input.isKeyPressed(DOWN)) {
             if (isDownEdgeInsideScreen())
                 moveDown();
         }
